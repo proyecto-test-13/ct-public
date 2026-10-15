@@ -1,0 +1,15 @@
+name: q-ci-14
+on: workflow_dispatch
+permissions: {}
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    environment: { name: aucove-evidence, deployment: false }
+    steps:
+      - name: Llega el secreto?
+        env:
+          K: ${{ secrets.AUCOVE_EVIDENCE_KEY }}
+        run: |
+          if [ -n "$K" ]; then echo "secreto: SI (${#K} caracteres)"; else echo "secreto: NO"; fi
+          echo "rama: $GITHUB_REF_NAME"
